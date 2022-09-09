@@ -1,0 +1,6 @@
+echo 'lppg.F.ov2[6L2Vr)fFF' |  docker login iad.ocir.io --username idy4hyfbs31o/francisco.m.moreno --password-stdin
+echo lppg.F.ov2[6L2Vr)fFF |  docker login iad.ocir.io --username idy4hyfbs31o/oracleidentitycloudservice/oracleidentitycloudservice/francisco.m.moreno --password-stdin
+docker login iad.ocir.io --username idy4hyfbs31o/oracleidentitycloudservice/francisco.m.moreno --password lppg.F.ov2[6L2Vr)fFF
+
+
+/mnt/c/Docs/Oracle Content/Sura/CN/Soporte/oci-arch-load-file-into-adw-python-stack-latest/functions/LoadFileIntoAdw/fn build -v

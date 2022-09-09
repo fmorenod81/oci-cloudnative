@@ -1,0 +1,43 @@
+## Copyright (c) 2021, Oracle and/or its affiliates.
+## All rights reserved. The Universal Permissive License (UPL), Version 1.0 as shown at http://oss.oracle.com/licenses/upl
+
+resource "null_resource" "Login2OCIR" {
+  depends_on = [oci_functions_application.LoadFileIntoAdwFnApp,
+    #    oci_database_autonomous_database.ADWdatabase,
+    module.oci-adb.adb_database,
+    oci_objectstorage_bucket.input-bucket,
+    oci_objectstorage_bucket.processed-bucket,
+    null_resource.soda_update,
+    #                oci_identity_policy.FunctionsServiceReposAccessPolicy,
+    #                oci_identity_policy.FunctionsServiceNetworkAccessPolicy,
+    oci_identity_dynamic_group.FunctionsServiceDynamicGroup,
+  oci_identity_policy.FunctionsServiceDynamicGroupPolicy]
+
+  provisioner "local-exec" {
+    command = "docker login ${local.ocir_docker_repository} --username ${local.ocir_namespace}/${var.ocir_user_name} --password '${var.ocir_user_password}'"
+  }
+}
+
+resource "null_resource" "LoadFileIntoAdwFnPush2OCIR" {
+  depends_on = [null_resource.Login2OCIR, oci_functions_application.LoadFileIntoAdwFnApp,
+    #oci_database_autonomous_database.ADWdatabase
+  module.oci-adb.adb_database]
+
+  provisioner "local-exec" {
+    command     = "fn build --verbose"
+    working_dir = "functions/LoadFileIntoAdw"
+  }
+
+  provisioner "local-exec" {
+    command     = "image=$(docker images | grep loadfileintoadw | awk -F ' ' '{print $3}') ; docker tag $image ${local.ocir_docker_repository}/${local.ocir_namespace}/${var.ocir_repo_name}/loadfileintoadw:0.0.1"
+    working_dir = "functions/LoadFileIntoAdw"
+  }
+
+  provisioner "local-exec" {
+    command     = "docker push ${local.ocir_docker_repository}/${local.ocir_namespace}/${var.ocir_repo_name}/loadfileintoadw:0.0.1"
+    working_dir = "functions/LoadFileIntoAdw"
+  }
+
+}
+
+#curl -X POST -u 'ADMIN:BEstrO0ng_#11' -H \"Content-Type: application/json\"  --data '{}' https://KZDLDWSJBQJKXRQ-ADWDB1.adb.us-ashburn-1.oraclecl
