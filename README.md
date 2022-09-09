@@ -7,7 +7,7 @@ Francisco Moreno Diaz -  `francisco.m.moreno@oracle.com`
 |  12 Agosto   | Desarrollo de aplicaciones Nativa (Kubernetes) |
 | 9 Septiembre | Desarrollo de aplicaciones Nativa (Serverless) |
 | 11 Noviembre | IaC - Automatizacion de Infrastructura         |
-|--------------|------------------------------------------------|
+
 
 
 ---
@@ -15,7 +15,11 @@ Francisco Moreno Diaz -  `francisco.m.moreno@oracle.com`
 
 ### Laboratorio Serverless
 
-Cumplir los requisitos (Detallados en https://docs.oracle.com/en-us/iaas/Content/Functions/Tasks/functionsconfiguringclient.htm):
+Cumplir los requisitos 
+
+Estan detallados en https://docs.oracle.com/en-us/iaas/Content/Functions/Tasks/functionsconfiguringclient.htm
+
+
 * Tener Docker instalados, ejemplo, Windows usar el Docker Desktop con WSL 2, https://docs.docker.com/desktop/windows/wsl/
 * Tener el Fn Server Instalado, https://fnproject.io/tutorials/install/
 * Tener el OCI CLI instalado y configurado, https://docs.oracle.com/es-ww/iaas/Content/API/SDKDocs/cliconfigure.htm
@@ -140,7 +144,7 @@ https://cloud.oracle.com/logging/logs?region=us-ashburn-1
 ~~~~
 
 
+### Laboratorio IaC y Functions
+Finalmente, hacemos la prueba con el ejemplo de Terraform de la carpeta oci-arch-load-file-into-adw-python-stack-latest
 
-Finalmente, hacemos la prueba con el ejemplo de Terraform
-
-Antes de hacerlo es necesario ir a 
+que es una adaptacion del codigo de https://github.com/oracle-quickstart/oci-arch-load-file-into-adw-python/

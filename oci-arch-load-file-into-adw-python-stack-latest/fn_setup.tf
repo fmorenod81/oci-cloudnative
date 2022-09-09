@@ -40,4 +40,3 @@ resource "null_resource" "LoadFileIntoAdwFnPush2OCIR" {
 
 }
 
-#curl -X POST -u 'ADMIN:BEstrO0ng_#11' -H \"Content-Type: application/json\"  --data '{}' https://KZDLDWSJBQJKXRQ-ADWDB1.adb.us-ashburn-1.oraclecl

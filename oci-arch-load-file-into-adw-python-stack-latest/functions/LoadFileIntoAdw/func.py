@@ -95,7 +95,6 @@ def handler(ctx, data: io.BytesIO=None):
         raise
     try:
         body = json.loads(data.getvalue())
-        print("INFO - FJMD 6:04 pm")
         print("INFO - Event ID {} received".format(body["eventID"]), flush=True)
         print("INFO - Object name: " + body["data"]["resourceName"], flush=True)
         object_name = body["data"]["resourceName"]

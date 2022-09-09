@@ -6,9 +6,10 @@
 *.tfstate.*l
 .terraform.lock.hcl
 terraform.tfstate.backup
-terraform.tfstate.lock.info
+.terraform.tfstate.lock.info
 # Crash log files
 crash.log
+Cmd.txt
 
 # Ignore any .tfvars files that are generated automatically for each Terraform run. Most
 # .tfvars files are managed as part of configuration and so should be included in
