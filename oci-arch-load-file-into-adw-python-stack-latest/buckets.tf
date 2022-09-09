@@ -9,7 +9,7 @@ resource "oci_objectstorage_bucket" "input-bucket" {
   compartment_id        = var.compartment_ocid
   name                  = "${var.input-bucket}-${random_id.tag.hex}"
   namespace             = "idy4hyfbs31o"
-  //data.oci_objectstorage_namespace.bucket_namespace.namespace
+  //namespace = data.oci_objectstorage_namespace.bucket_namespace.namespace
   object_events_enabled = true
 }
 
