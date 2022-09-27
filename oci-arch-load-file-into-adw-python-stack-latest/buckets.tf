@@ -8,14 +8,20 @@ data "oci_objectstorage_namespace" "bucket_namespace" {
 resource "oci_objectstorage_bucket" "input-bucket" {
   compartment_id        = var.compartment_ocid
   name                  = "${var.input-bucket}-${random_id.tag.hex}"
-  namespace             = "idy4hyfbs31o"
-  //namespace             = data.oci_objectstorage_namespace.bucket_namespace.namespace
+  //namespace             = "idy4hyfbs31o"
+  namespace             = data.oci_objectstorage_namespace.bucket_namespace.namespace
   object_events_enabled = true
+  depends_on = [
+    data.oci_objectstorage_namespace.bucket_namespace
+  ]
 }
 
 resource "oci_objectstorage_bucket" "processed-bucket" {
   compartment_id = var.compartment_ocid
   name           = "${var.processed-bucket}-${random_id.tag.hex}"
-  namespace             = "idy4hyfbs31o"
-  //namespace      = data.oci_objectstorage_namespace.bucket_namespace.namespace
+  //namespace             = "idy4hyfbs31o"
+  namespace      = data.oci_objectstorage_namespace.bucket_namespace.namespace
+  depends_on = [
+    data.oci_objectstorage_namespace.bucket_namespace
+  ]
 }

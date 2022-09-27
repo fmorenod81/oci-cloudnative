@@ -19,14 +19,14 @@ def soda_insert(ordsbaseurl, schema, dbuser, dbpwd, document):
     sodaurl = ordsbaseurl + schema + '/soda/latest/'
     collectionurl = sodaurl + "regionsnumbers"
     headers = {'Content-Type': 'application/json'}
-    print("INFO - soda_insert: collectionurl = " + collectionurl, flush=True)
-    print("INFO - soda_insert: data = " + json.dumps(document), flush=True)
+    print("INFO FJMD - soda_insert: collectionurl = " + collectionurl, flush=True)
+    print("INFO FJMD - soda_insert: data = " + json.dumps(document), flush=True)
     r = requests.post(collectionurl, auth=auth, headers=headers, data=json.dumps(document))
     r_json = {}
     try:
         r_json = json.loads(r.text)
     except ValueError as e:
-        print("ERROR - soda_insert: r.text = " + r.text, flush=True)
+        print("ERROR FJMD - soda_insert: r.text = " + r.text, flush=True)
         raise
     return r_json
 
@@ -34,26 +34,26 @@ def soda_insert(ordsbaseurl, schema, dbuser, dbpwd, document):
 def load_data(signer, namespace, bucket_name, object_name, ordsbaseurl, schema, dbuser, dbpwd):
     client = oci.object_storage.ObjectStorageClient(config={}, signer=signer)
     try:
-        print("INFO - About to read object {0} in bucket {1}...".format(object_name, bucket_name), flush=True)
+        print("INFO FJMD - About to read object {0} in bucket {1}...".format(object_name, bucket_name), flush=True)
         # we assume the file can fit in memory, otherwise we have to use the "range" argument and loop through the file
         csvdata = client.get_object(namespace, bucket_name, object_name)
         if csvdata.status == 200:
-            print("INFO - Object {0} is read".format(object_name), flush=True)
+            print("INFO FJMD - Object {0} is read".format(object_name), flush=True)
             input_csv_text = str(csvdata.data.text)
             reader = csv.DictReader(input_csv_text.split('\n'), delimiter=',')
             for row in reader:
-                print("INFO - inserting:")
-                print("INFO - " + json.dumps(row), flush=True)
+                print("INFO FJMD - inserting:")
+                print("INFO FJMD - " + json.dumps(row), flush=True)
                 insert_status = soda_insert(ordsbaseurl, schema, dbuser, dbpwd, row)
                 if "id" in insert_status["items"][0]:
-                    print("INFO - Successfully inserted document ID " + insert_status["items"][0]["id"], flush=True)
+                    print("INFO FJMD - Successfully inserted document ID " + insert_status["items"][0]["id"], flush=True)
                 else:
                     raise SystemExit("Error while inserting: " + insert_status)
         else:
             raise SystemExit("cannot retrieve the object" + str(object_name))
     except Exception as e:
         raise SystemExit(str(e))
-    print("INFO - All documents are successfully loaded into the database", flush=True)
+    print("INFO FJMD - All documents are successfully loaded into the database", flush=True)
 
 
 def move_object(signer, namespace, source_bucket, destination_bucket, object_name):
@@ -76,7 +76,7 @@ def move_object(signer, namespace, source_bucket, destination_bucket, object_nam
         raise Exception("cannot copy object {0} to bucket {1}".format(object_name,destination_bucket))
     else:
         resp = objstore.delete_object(namespace, source_bucket, object_name)
-        print("INFO - Object {0} moved to Bucket {1}".format(object_name,destination_bucket), flush=True)
+        print("INFO FJMD - Object {0} moved to Bucket {1}".format(object_name,destination_bucket), flush=True)
 
 
 def handler(ctx, data: io.BytesIO=None):
@@ -95,13 +95,13 @@ def handler(ctx, data: io.BytesIO=None):
         raise
     try:
         body = json.loads(data.getvalue())
-        print("INFO - Event ID {} received".format(body["eventID"]), flush=True)
-        print("INFO - Object name: " + body["data"]["resourceName"], flush=True)
+        print("INFO FJMD - Event ID {} received".format(body["eventID"]), flush=True)
+        print("INFO FJMD - Object name: " + body["data"]["resourceName"], flush=True)
         object_name = body["data"]["resourceName"]
-        print("INFO - Bucket name: " + body["data"]["additionalDetails"]["bucketName"], flush=True)
+        print("INFO FJMD - Bucket name: " + body["data"]["additionalDetails"]["bucketName"], flush=True)
         if body["data"]["additionalDetails"]["bucketName"] != input_bucket:
             raise ValueError("Event Bucket name error")
-        print("INFO - Namespace: " + body["data"]["additionalDetails"]["namespace"], flush=True)
+        print("INFO FJMD - Namespace: " + body["data"]["additionalDetails"]["namespace"], flush=True)
         namespace = body["data"]["additionalDetails"]["namespace"]
     except Exception as e:
         print('ERROR: bad Event!', flush=True)
