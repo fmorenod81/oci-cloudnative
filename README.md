@@ -2,11 +2,11 @@
 Francisco Moreno Diaz -  `francisco.m.moreno@oracle.com`
 
 
-|   FECHAS     |        TEMAS/LABORATORIO                       |
-|--------------|------------------------------------------------|
-|  12 Agosto   | Desarrollo de aplicaciones Nativa (Kubernetes) |
-| 9 Septiembre | Desarrollo de aplicaciones Nativa (Serverless) |
-| 11 Noviembre | IaC - Automatizacion de Infrastructura         |
+|   FECHAS      |        TEMAS/LABORATORIO                       |
+|---------------|------------------------------------------------|
+|  12 Agosto    | Desarrollo de aplicaciones Nativa (Kubernetes) |
+| 9 Septiembre  | Desarrollo de aplicaciones Nativa (Serverless) |
+| 30 Septiembre | IaC - Automatizacion de Infrastructura         |
 
 
 
@@ -44,6 +44,7 @@ Saber en que contexto estamos y pasarnos a un contexto local
 fn list context
 fn use context default
 fn list apps
+fn delete apps appfjmd
 ~~~~
 
 Generamos variables de entorno para dejar parametros fijos
@@ -83,6 +84,7 @@ curl -X "POST" -H "Content-Type: application/json" -d '{"name":"FranciscoMoreno"
 
 
 ----
+
 
 
 Revisamos los valores de configuracion del contexto por medio de

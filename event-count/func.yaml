@@ -1,6 +1,6 @@
 schema_version: 20180708
 name: event-count
-version: 0.0.23
+version: 0.0.26
 runtime: python
 build_image: fnproject/python:3.8-dev
 run_image: fnproject/python:3.8
