@@ -1,11 +1,16 @@
+**REQUISITOS**
+  
 1. Tener acceso a un tenant OCI que no este en capa gratuita
+   
 2. Ser usuario administrador de ese tenant 
+   
 3. Crear un auth token para ese usuario https://docs.oracle.com/en-us/iaas/Content/Registry/Tasks/registrygettingauthtoken.htm
+   
 4. Crear un repositorio publico en su compartment del tenat
 https://cloud.oracle.com/registry/containers
 > Por ejemplo, myapp/*iniciales*
 ----
-
+**PROCEDIMIENTO**
 Lanzar el Cloud Shell
 ~~~~
 export APP=appfjmd
@@ -22,8 +27,7 @@ fn list context
 
 fn use context us-ashburn-1
 
-fn update context oracle.compartment-id ocid1.compartment.oc1..
-aaaaaaaa4ewy3s376yq5xuvtpwe5nvksw6qjif2qwtor2vjaqcsmd5sw47fq
+fn update context oracle.compartment-id ocid1.compartment.oc1..aaaaaaaa4ewy3s376yq5xuvtpwe5nvksw6qjif2qwtor2vjaqcsmd5sw47fq
 
 fn update context oracle.compartment-id *AutomaticamenteGeneraElCompartment*
 
@@ -38,6 +42,12 @@ docker login -u '*os_ns*/oracleidentitycloudservice/*usuario*' *region_code*.oci
 Y aqui se pone el Auth Token
 ~~~~
 lppg.F.ov2[6L2Vr)fFF
+~~~~
+
+---
+
+Listar las aplicaciones de ese contexto
+~~~~
 
 fn list apps
 ~~~~
@@ -60,7 +70,7 @@ fn init --runtime python $FUNCT
 cd $FUNCT
 ~~~~
 
-Verificar archivos creados
+Verificar archivos creados por medio de Code Editor, en otra pestaña
 
 ~~~~
 oci artifacts container repository create --compartment-id ocid1.compartment.oc1..aaaaaaaa4ewy3s376yq5xuvtpwe5nvksw6qjif2qwtor2vjaqcsmd5sw47fq --display-name $APP/$FUNCT --is-public true 
@@ -76,4 +86,6 @@ echo -n '{"name":"FranciscoMoreno"}'|fn invoke $APP $FUNCT application/json
 fn inspect function $APP $FUNCT
 
 fn inspect function $APP $FUNCT|jq .id|sed -e 's/^"//' -e 's/"$//' 
+~~~~
 
+Se pueden mirar los logs del sistema
