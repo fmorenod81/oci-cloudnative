@@ -2,11 +2,12 @@
 2. Ser usuario administrador de ese tenant 
 3. Crear un auth token para ese usuario https://docs.oracle.com/en-us/iaas/Content/Registry/Tasks/registrygettingauthtoken.htm
 4. Crear un repositorio publico en su compartment del tenat
- https://cloud.oracle.com/registry/containers
-Por ejemplo, myapp/<iniciales>
+https://cloud.oracle.com/registry/containers
+> Por ejemplo, myapp/*iniciales*
 ----
-Lanzar el Cloud Shell
 
+Lanzar el Cloud Shell
+~~~~
 export APP=appfjmd
 
 export FUNCT=funcfjmd
@@ -24,22 +25,22 @@ fn use context us-ashburn-1
 fn update context oracle.compartment-id ocid1.compartment.oc1..
 aaaaaaaa4ewy3s376yq5xuvtpwe5nvksw6qjif2qwtor2vjaqcsmd5sw47fq
 
-fn update context oracle.compartment-id <AutomaticamenteGeneraElCompartment>
+fn update context oracle.compartment-id *AutomaticamenteGeneraElCompartment*
 
-fn update context registry <region_code>.ocir.io/<os_ns>/<nombre_app>
+fn update context registry *region_code*.ocir.io/*os_ns*/*nombre_app*
 
 fn update context registry iad.ocir.io/idy4hyfbs31o/$APP
 
 docker login -u 'idy4hyfbs31o/oracleidentitycloudservice/francisco.m.moreno' iad.ocir.io
 
-docker login -u '<os_ns>/oracleidentitycloudservice/<usuario>' <region_code>.ocir.io
-
+docker login -u '*os_ns*/oracleidentitycloudservice/*usuario*' *region_code*.ocir.io
+~~~~
 Y aqui se pone el Auth Token
-
+~~~~
 lppg.F.ov2[6L2Vr)fFF
 
 fn list apps
-
+~~~~
 ----
 
 Generamos variables de entorno para dejar parametros fijos
