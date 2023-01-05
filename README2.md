@@ -13,10 +13,13 @@ https://cloud.oracle.com/registry/containers
 **PROCEDIMIENTO**
 Lanzar el Cloud Shell
 ~~~~
-export APP=appfjmd
+export APP=fjmdapp
 
-export FUNCT=funcfjmd
+export FUNCT=fjmdfun
 
+export APP1=authapp
+
+export FUNCT1=authfun
 docker version
 
 fn version
@@ -82,6 +85,10 @@ docker image ls|grep -i $FUNCT
 fn invoke $APP $FUNCT
 
 echo -n '{"name":"FranciscoMoreno"}'|fn invoke $APP $FUNCT application/json
+
+echo -n '{"token":"FranciscoMoreno"}'|fn invoke $APP1 $FUNCT1 application/json
+
+echo -n '{"token":"ABCDEF123"}'|fn invoke $APP1 $FUNCT1 application/json
 
 fn inspect function $APP $FUNCT
 
