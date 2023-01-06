@@ -24,18 +24,15 @@ Luego, se ingresa al Cluster desde el Cloud Shell, siguiendo https://www.oracle.
 Se pueden lanzar estos comandos para probar funcionalidad
 
   
-~~~~
-kubectl get nodes
-~~~~
+`kubectl get nodes`
 
->NAME STATUS ROLES AGE VERSION
->10.0.10.37 Ready node 16m v1.24.1
-~~~~
-kubectl get pods --all-namespaces
-~~~~
-
+```console
+NAME STATUS ROLES AGE VERSION
+10.0.10.37 Ready node 16m v1.24.1
 ```
+`kubectl get pods --all-namespaces`
 
+```console
 NAMESPACE NAME READY STATUS RESTARTS AGE
 
 kube-system coredns-746957c9c6-mh8qn 1/1 Running 0 24m
@@ -51,48 +48,30 @@ kube-system kube-proxy-kd9p2 1/1 Running 0 16m
 kube-system proxymux-client-5h55j 1/1 Running 0 16m
 
 ```
-~~~~
-kubectl create -f ngninx-service.yml
-~~~~
+`kubectl create -f ngninx-service.yml`
 
-```
-
+```console
 deployment.apps/nginx created
-
 service/nginx created
-
-```
-~~~~
-kubectl get pods --all-namespaces
-~~~~
-
 ```
 
+`kubectl get pods --all-namespaces`
+
+```console
 NAMESPACE NAME READY STATUS RESTARTS AGE
-
 default nginx-78878bf58d-7hcxd 1/1 Running 0 117s
-
 default nginx-78878bf58d-glxvn 1/1 Running 0 117s
-
 kube-system coredns-746957c9c6-mh8qn 1/1 Running 0 24m
-
 kube-system csi-oci-node-6r6bq 1/1 Running 1 (15m ago) 17m
-
 kube-system kube-dns-autoscaler-6f789cfb88-qjvvc 1/1 Running 0 24m
-
 kube-system kube-flannel-ds-pjjsf 1/1 Running 1 (15m ago) 17m
-
 kube-system kube-proxy-kd9p2 1/1 Running 0 17m
-
 kube-system proxymux-client-5h55j 1/1 Running 0 17m
-
-```
-~~~~
-kubectl get svc --all-namespaces
-~~~~
-
 ```
 
+`kubectl get svc --all-namespaces`
+
+```console
 NAMESPACE NAME TYPE CLUSTER-IP EXTERNAL-IP PORT(S) AGE
 
 default kubernetes ClusterIP 10.96.0.1 <none> 443/TCP,12250/TCP 26m
@@ -108,39 +87,27 @@ kube-system kube-dns ClusterIP 10.96.5.5 <none> 53/UDP,53/TCP,9153/TCP 25m
 Tomar la informacion del External-IP
 
   
-~~~~
-curl 132.226.37.80
-~~~~
+`curl 132.226.37.80`
 
   
 
-```
-
+```html
 <!DOCTYPE  html>
-
 <html>
-
 <head>
-
 <title>Welcome to nginx!</title>
-
 <style>
-
 .....
 
 ```
 
   
-~~~~
+```shell
 kubectl delete -f ngninx-service.yml
-~~~~
-
 ```
-
+```shell
 deployment.apps "nginx" deleted
-
 service "nginx" deleted
-
 ```
 
 ### Horizontal Autopodscaler
@@ -427,7 +394,7 @@ Finalmente se despliegue el archivo de configuracion en el cluster
 kubectl apply -f cluster-autoscaler.yaml
 ~~~~
 
-```
+```console
 
 serviceaccount/cluster-autoscaler created
 
